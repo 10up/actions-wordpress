@@ -2,8 +2,16 @@
 
 set -e
 
-SLUG=${GITHUB_REPOSITORY#*/}
-VERSION=${GITHUB_REF#refs/tags/}
+# Allow some ENV variables to be customized
+if [[ -z "$SLUG" ]]; then
+	SLUG=${GITHUB_REPOSITORY#*/}
+fi
+
+# Does it even make sense for VERSION to be editable in a workflow definition?
+if [[ -z "$VERSION" ]]; then
+	VERSION=${GITHUB_REF#refs/tags/}
+fi
+
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="${GITHUB_WORKSPACE}/svn-${SLUG}"
 
