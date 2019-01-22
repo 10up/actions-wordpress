@@ -32,6 +32,10 @@ svn update --set-depth infinity trunk
 # Copy dotorg assets to /assets
 
 # Add everything and commit to SVN
+# The force flag ensures we recurse into subdirectories even if they are already added
+cd $SVN_URL
+svn add * --force
+svn commit -m "Update to version $VERSION from GitHub"
 
 # SVN tag to VERSION
-
+svn cp "^/trunk" "^/tags/$VERSION" -m "Tag $VERSION”
