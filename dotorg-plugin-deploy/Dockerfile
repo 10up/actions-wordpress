@@ -11,6 +11,7 @@ LABEL repository="http://github.com/helen/actions-wordpress"
 
 RUN apt-get update
 RUN apt-get install -y subversion
+RUN apt-get install -y rsync
 RUN	apt-get clean -y
 RUN rm -rf /var/lib/apt/lists/*
 
