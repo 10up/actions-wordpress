@@ -2,7 +2,7 @@
 
 echo "Let's go!"
 
-set -x
+set -eu
 
 # Ensure SVN username and password are set
 # IMPORTANT: secrets are accessible by anyone with write access to the repository!
