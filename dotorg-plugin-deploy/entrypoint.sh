@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Let's go!"
 
-set -eu
+set -eo pipefail
 
 # Ensure SVN username and password are set
 # IMPORTANT: secrets are accessible by anyone with write access to the repository!
