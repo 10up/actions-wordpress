@@ -47,7 +47,7 @@ svn update --set-depth infinity trunk
 echo "Copying files..."
 
 # Copy from current branch to /trunk, excluding dotorg assets
-rsync -r --exclude "$GITHUB_WORKSPACE/$ASSETS_DIR/" --exclude "$GITHUB_WORKSPACE/.git/" --exclude "$GITHUB_WORKSPACE/.github/" "$GITHUB_WORKSPACE/" trunk/
+rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/
 
 # Copy dotorg assets to /assets
 rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/
@@ -55,11 +55,11 @@ rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
 echo "Committing files..."
-svn add * --force
-svn commit --no-auth-cache --non-interactive --username $SVN_USERNAME --password $SVN_PASSWORD -m "Update to version $VERSION from GitHub"
+svn add . --force
+svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 # SVN tag to VERSION
 echo "Tagging version..."
-svn cp --no-auth-cache --non-interactive --username $SVN_USERNAME --password $SVN_PASSWORD "^/trunk" "^/tags/$VERSION" -m "Tag $VERSION"
+svn cp "^/trunk" "^/tags/$VERSION" -m "Tag $VERSION" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 echo "Plugin deployed!"
