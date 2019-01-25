@@ -34,7 +34,7 @@ fi
 echo "ASSETS_DIR is $ASSETS_DIR"
 
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
-SVN_DIR="${GITHUB_WORKSPACE}/svn-${SLUG}"
+SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
 # Tagging will be handled on the SVN level
@@ -47,10 +47,10 @@ svn update --set-depth infinity trunk
 echo "Copying files..."
 
 # Copy from current branch to /trunk, excluding dotorg assets
-rsync -r --exclude "$GITHUB_WORKSPACE/$ASSETS_DIR" "$GITHUB_WORKSPACE/*" trunk/
+rsync -r --exclude "$GITHUB_WORKSPACE/$ASSETS_DIR" "$GITHUB_WORKSPACE/" trunk/
 
 # Copy dotorg assets to /assets
-rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/*" assets/
+rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/
 
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
