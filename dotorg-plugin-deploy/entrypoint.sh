@@ -47,15 +47,24 @@ svn update --set-depth infinity trunk
 echo "Copying files..."
 
 # Copy from current branch to /trunk, excluding dotorg assets
-rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/
+# The --delete flag will delete anything in destination that no longer exists in source
+rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
 
 # Copy dotorg assets to /assets
-rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/
+rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
-echo "Committing files..."
+echo "Preparing files..."
 svn add . --force
+
+# SVN delete all deleted files
+svn status
+svn status | grep '^\!'
+svn status | grep '^\!' | sed 's/! *//'
+svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %
+
+echo "Committing files..."
 svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 # SVN tag to VERSION
