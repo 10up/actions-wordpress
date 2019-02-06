@@ -2,7 +2,7 @@
 
 echo "Let's go!"
 
-set -eo pipefail
+set -eo
 
 # Ensure SVN username and password are set
 # IMPORTANT: secrets are accessible by anyone with write access to the repository!
@@ -59,9 +59,6 @@ echo "Preparing files..."
 svn add . --force
 
 # SVN delete all deleted files
-svn status
-svn status | grep '^\!'
-svn status | grep '^\!' | sed 's/! *//'
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %
 
 echo "Committing files..."
