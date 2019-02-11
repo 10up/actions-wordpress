@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "Let's go!"
-
+# Note that this does not use pipefail
+# because if the grep later doesn't match any deleted files,
+# which is likely the majority case,
+# it does not exit with a 0, and I only care about the final exit.
 set -eo
 
 # Ensure SVN username and password are set
@@ -20,18 +22,18 @@ fi
 if [[ -z "$SLUG" ]]; then
 	SLUG=${GITHUB_REPOSITORY#*/}
 fi
-echo "SLUG is $SLUG"
+echo "ℹ︎ SLUG is $SLUG"
 
 # Does it even make sense for VERSION to be editable in a workflow definition?
 if [[ -z "$VERSION" ]]; then
 	VERSION=${GITHUB_REF#refs/tags/}
 fi
-echo "VERSION is $VERSION"
+echo "ℹ︎ VERSION is $VERSION"
 
 if [[ -z "$ASSETS_DIR" ]]; then
 	ASSETS_DIR="assets/dotorg"
 fi
-echo "ASSETS_DIR is $ASSETS_DIR"
+echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
@@ -44,28 +46,28 @@ cd "$SVN_DIR"
 svn update --set-depth infinity assets
 svn update --set-depth infinity trunk
 
-echo "Copying files..."
+echo "➤ Copying files..."
 
 # Copy from current branch to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
-rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
+rsync -rv --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
 
 # Copy dotorg assets to /assets
-rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
+rsync -rv "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
-echo "Preparing files..."
+echo "➤ Preparing files..."
 svn add . --force
 
 # SVN delete all deleted files
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %
 
-echo "Committing files..."
+echo "︎➤ Committing files..."
 svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 # SVN tag to VERSION
-echo "Tagging version..."
+echo "➤ Tagging version..."
 svn cp "^/$SLUG/trunk" "^/$SLUG/tags/$VERSION" -m "Tag $VERSION" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
-echo "Plugin deployed!"
+echo "✓ Plugin deployed!"
