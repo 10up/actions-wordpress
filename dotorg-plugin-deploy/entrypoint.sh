@@ -40,7 +40,7 @@ SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
 # Tagging will be handled on the SVN level
-echo "Checking out .org repository..."
+echo "➤ Checking out .org repository..."
 svn checkout --depth immediates "$SVN_URL" "$SVN_DIR"
 cd "$SVN_DIR"
 svn update --set-depth infinity assets
@@ -50,10 +50,10 @@ echo "➤ Copying files..."
 
 # Copy from current branch to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
-rsync -rv --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
+rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
 
 # Copy dotorg assets to /assets
-rsync -rv "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
+rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
