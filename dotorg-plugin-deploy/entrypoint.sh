@@ -57,11 +57,15 @@ rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
 # Add everything and commit to SVN
 # The force flag ensures we recurse into subdirectories even if they are already added
+# Suppress stdout in favor of svn status later for readability
 echo "➤ Preparing files..."
-svn add . --force
+svn add . --force > /dev/null
 
 # SVN delete all deleted files
-svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %
+# Also suppress stdout here
+svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
+
+svn status
 
 echo "︎➤ Committing files..."
 svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
