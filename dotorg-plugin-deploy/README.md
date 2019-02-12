@@ -37,3 +37,15 @@ action "WordPress Plugin Deploy" {
   }
 }
 ```
+
+## Contributing
+Want to help? Check out our [contributing guidelines](../CONTRIBUTING.md) to get started.
+
+<p align="center">
+<a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
+</p>
+
+## License
+
+Our GitHub Actions are available for use and remix under the MIT license.
+

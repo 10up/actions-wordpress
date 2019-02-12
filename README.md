@@ -15,7 +15,6 @@ Whenever you tag a new version of your plugin on GitHub, your changes will be co
 ## Contributing
 Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get started.
 
-## Like what you see?
 <p align="center">
 <a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
 </p>
