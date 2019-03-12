@@ -1,6 +1,6 @@
 # WordPress.org Plugin Deploy
 
-This Action commits the contents of your Git tag to the WordPress.org plugin repository using the same tag name. It excludes files in `.git` and `.github` subdirectories and moves anything from `assets/dotorg` to the top-level `assets` directory in Subversion (plugin banners, icons, and screenshots).
+This Action commits the contents of your Git tag to the WordPress.org plugin repository using the same tag name. It excludes files in `.git` and `.github` subdirectories and moves anything from a `.wordpress-org` subdirectory to the top-level `assets` directory in Subversion (plugin banners, icons, and screenshots).
 
 ## Configuration
 
@@ -13,7 +13,7 @@ Secrets can be set while editing your workflow or in the repository settings. Th
 ### Optional environment variables
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug
 * `VERSION` - defaults to the tag name; do not recommend setting this except for testing purposes
-* `ASSETS_DIR` - defaults to `assets/dotorg`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
+* `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
 
 ## Example Workflow File
 ```

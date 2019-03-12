@@ -31,7 +31,7 @@ fi
 echo "ℹ︎ VERSION is $VERSION"
 
 if [[ -z "$ASSETS_DIR" ]]; then
-	ASSETS_DIR="assets/dotorg"
+	ASSETS_DIR=".wordpress-org"
 fi
 echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
