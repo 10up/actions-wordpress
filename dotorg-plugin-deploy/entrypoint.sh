@@ -7,7 +7,6 @@
 set -eo
 
 # Ensure SVN username and password are set
-# IMPORTANT: secrets are accessible by anyone with write access to the repository!
 if [[ -z "$SVN_USERNAME" ]]; then
 	echo "Set the SVN_USERNAME secret"
 	exit 1
@@ -67,7 +66,7 @@ svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
 
 svn status
 
-echo "︎➤ Committing files..."
+echo "➤ Committing files..."
 svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 # SVN tag to VERSION
