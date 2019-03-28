@@ -50,6 +50,17 @@ svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
 
+# If there's no .gitattributes file, write a default one into place
+if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]
+	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
+	/$ASSETS_DIR export-ignore
+	/.git export-ignore
+	/.gitattributes export-ignore
+	/.gitignore export-ignore
+	/.github export-ignore
+	EOL
+fi
+
 # Copy from current branch to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
 rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
