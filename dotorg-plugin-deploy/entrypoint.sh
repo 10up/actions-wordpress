@@ -50,7 +50,7 @@ if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
 	# The .gitattributes file has to be committed to be used
 	# Just don't push it to the origin repo :)
 	cd $GITHUB_WORKSPACE
-	git add .gitattributes && git commit -m "Add .gitattributes file" > /dev/null
+	git add .gitattributes && git commit -m "Add .gitattributes file"
 fi
 
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
