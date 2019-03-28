@@ -10,7 +10,7 @@ LABEL version="1.0.0"
 LABEL repository="http://github.com/helen/actions-wordpress"
 
 RUN apt-get update \
-	&& apt-get install -y subversion rsync \
+	&& apt-get install -y subversion rsync git \
 	&& apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
 
