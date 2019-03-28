@@ -37,6 +37,22 @@ if [[ -z "$ASSETS_DIR" ]]; then
 fi
 echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
+# If there's no .gitattributes file, write a default one into place
+if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]
+	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
+	/$ASSETS_DIR export-ignore
+	/.gitattributes export-ignore
+	/.gitignore export-ignore
+	/.github export-ignore
+	EOL
+
+	# Ensure we are in the $GITHUB_WORKSPACE directory, just in case
+	# The .gitattributes file has to be committed to be used
+	# Just don't push it to the origin repo :)
+	cd $GITHUB_WORKSPACE
+	git add .gitattributes && git commit -m "Add .gitattributes file" > /dev/null
+fi
+
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
 
@@ -50,16 +66,6 @@ svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
 
-# If there's no .gitattributes file, write a default one into place
-if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]
-	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
-	/$ASSETS_DIR export-ignore
-	/.git export-ignore
-	/.gitattributes export-ignore
-	/.gitignore export-ignore
-	/.github export-ignore
-	EOL
-fi
 
 # Copy from current branch to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
