@@ -66,10 +66,16 @@ svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
 
+# "Export" a cleaned copy to a temp directory
+TMP_DIR="/github/archivetmp"
+mkdir "$TMP_DIR"
 
-# Copy from current branch to /trunk, excluding dotorg assets
+# This will exclude everything in the .gitattributes file with the export-ignore flag
+git archive HEAD | tar x --directory="$TMP_DIR"
+
+# Copy from clean copy to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
-rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
+rsync -r "$TMP_DIR/" trunk/ --delete
 
 # Copy dotorg assets to /assets
 rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
