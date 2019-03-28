@@ -38,7 +38,7 @@ fi
 echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
 # If there's no .gitattributes file, write a default one into place
-if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]
+if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
 	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
 	/$ASSETS_DIR export-ignore
 	/.gitattributes export-ignore
