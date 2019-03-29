@@ -54,7 +54,7 @@ svn update --set-depth infinity assets
 svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
-cd $GITHUB_WORKSPACE
+cd "$GITHUB_WORKSPACE"
 
 # "Export" a cleaned copy to a temp directory
 TMP_DIR="/github/archivetmp"
@@ -63,10 +63,10 @@ mkdir "$TMP_DIR"
 git config --global user.email "10upbot+github@10up.com"
 git config --global user.name "10upbot on GitHub"
 
-git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-git fetch origin $VERSION
-git checkout $VERSION
+git fetch origin "$VERSION"
+git checkout "$VERSION"
 
 # If there's no .gitattributes file, write a default one into place
 if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
