@@ -6,8 +6,6 @@
 # it does not exit with a 0, and I only care about the final exit.
 set -eo
 
-git config --global user.email "10upbot+github@10up.com" && git config --global user.name "10upbot on GitHub"
-
 # Ensure SVN username and password are set
 # IMPORTANT: while secrets are encrypted and not viewable in the GitHub UI,
 # they are by necessity provided as plaintext in the context of the Action,
@@ -19,6 +17,11 @@ fi
 
 if [[ -z "$SVN_PASSWORD" ]]; then
 	echo "Set the SVN_PASSWORD secret"
+	exit 1
+fi
+
+if [[ -z "$GITHUB_TOKEN" ]]; then
+	echo "Set the GITHUB_TOKEN env variable"
 	exit 1
 fi
 
@@ -39,22 +42,6 @@ if [[ -z "$ASSETS_DIR" ]]; then
 fi
 echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
-# If there's no .gitattributes file, write a default one into place
-if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
-	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
-	/$ASSETS_DIR export-ignore
-	/.gitattributes export-ignore
-	/.gitignore export-ignore
-	/.github export-ignore
-	EOL
-
-	# Ensure we are in the $GITHUB_WORKSPACE directory, just in case
-	# The .gitattributes file has to be committed to be used
-	# Just don't push it to the origin repo :)
-	cd $GITHUB_WORKSPACE
-	git add .gitattributes && git commit -m "Add .gitattributes file"
-fi
-
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
 
@@ -67,10 +54,34 @@ svn update --set-depth infinity assets
 svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
+cd $GITHUB_WORKSPACE
 
 # "Export" a cleaned copy to a temp directory
 TMP_DIR="/github/archivetmp"
 mkdir "$TMP_DIR"
+
+git config --global user.email "10upbot+github@10up.com"
+git config --global user.name "10upbot on GitHub"
+
+git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+
+git fetch origin $VERSION
+git checkout $VERSION
+
+# If there's no .gitattributes file, write a default one into place
+if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
+	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
+	/$ASSETS_DIR export-ignore
+	/.gitattributes export-ignore
+	/.gitignore export-ignore
+	/.github export-ignore
+	EOL
+
+	# Ensure we are in the $GITHUB_WORKSPACE directory, just in case
+	# The .gitattributes file has to be committed to be used
+	# Just don't push it to the origin repo :)
+	git add .gitattributes && git commit -m "Add .gitattributes file"
+fi
 
 # This will exclude everything in the .gitattributes file with the export-ignore flag
 git archive HEAD | tar x --directory="$TMP_DIR"
@@ -86,6 +97,7 @@ rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 # The force flag ensures we recurse into subdirectories even if they are already added
 # Suppress stdout in favor of svn status later for readability
 echo "➤ Preparing files..."
+cd "$SVN_DIR"
 svn add . --force > /dev/null
 
 # SVN delete all deleted files
