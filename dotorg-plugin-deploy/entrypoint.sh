@@ -63,8 +63,6 @@ mkdir "$TMP_DIR"
 git config --global user.email "10upbot+github@10up.com"
 git config --global user.name "10upbot on GitHub"
 
-git status
-
 # If there's no .gitattributes file, write a default one into place
 if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
 	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
@@ -83,6 +81,8 @@ fi
 # This will exclude everything in the .gitattributes file with the export-ignore flag
 git archive HEAD | tar x --directory="$TMP_DIR"
 
+cd "$SVN_DIR"
+
 # Copy from clean copy to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
 rsync -r "$TMP_DIR/" trunk/ --delete
@@ -94,7 +94,6 @@ rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 # The force flag ensures we recurse into subdirectories even if they are already added
 # Suppress stdout in favor of svn status later for readability
 echo "➤ Preparing files..."
-cd "$SVN_DIR"
 svn add . --force > /dev/null
 
 # SVN delete all deleted files
