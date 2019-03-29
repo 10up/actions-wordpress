@@ -66,9 +66,13 @@ git config --global user.name "10upbot on GitHub"
 git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git fetch --all --tags --prune
+jobs -l
+sleep 10
 wait $!
 git checkout "$VERSION"
+jobs -l
 wait $!
+sleep 10
 
 # If there's no .gitattributes file, write a default one into place
 if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
