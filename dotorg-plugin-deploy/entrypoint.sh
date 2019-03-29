@@ -60,20 +60,6 @@ cd "$GITHUB_WORKSPACE"
 TMP_DIR="/github/archivetmp"
 mkdir "$TMP_DIR"
 
-git config --global user.email "10upbot+github@10up.com"
-git config --global user.name "10upbot on GitHub"
-
-git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-
-git fetch --all --tags --prune
-jobs -l
-sleep 10
-wait $!
-git checkout "$VERSION"
-jobs -l
-wait $!
-sleep 10
-
 # If there's no .gitattributes file, write a default one into place
 if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
 	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
