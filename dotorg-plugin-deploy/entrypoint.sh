@@ -65,7 +65,7 @@ git config --global user.name "10upbot on GitHub"
 
 git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-git fetch origin "$VERSION"
+git fetch --all --tags --prune
 git checkout "$VERSION"
 
 # If there's no .gitattributes file, write a default one into place
