@@ -20,6 +20,11 @@ if [[ -z "$SVN_PASSWORD" ]]; then
 	exit 1
 fi
 
+if [[ -z "$GITHUB_TOKEN" ]]; then
+	echo "Set the GITHUB_TOKEN env variable"
+	exit 1
+fi
+
 # Allow some ENV variables to be customized
 if [[ -z "$SLUG" ]]; then
 	SLUG=${GITHUB_REPOSITORY#*/}
@@ -49,10 +54,38 @@ svn update --set-depth infinity assets
 svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
+cd "$GITHUB_WORKSPACE"
 
-# Copy from current branch to /trunk, excluding dotorg assets
+# "Export" a cleaned copy to a temp directory
+TMP_DIR="/github/archivetmp"
+mkdir "$TMP_DIR"
+
+git config --global user.email "10upbot+github@10up.com"
+git config --global user.name "10upbot on GitHub"
+
+# If there's no .gitattributes file, write a default one into place
+if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
+	cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
+	/$ASSETS_DIR export-ignore
+	/.gitattributes export-ignore
+	/.gitignore export-ignore
+	/.github export-ignore
+	EOL
+
+	# Ensure we are in the $GITHUB_WORKSPACE directory, just in case
+	# The .gitattributes file has to be committed to be used
+	# Just don't push it to the origin repo :)
+	git add .gitattributes && git commit -m "Add .gitattributes file"
+fi
+
+# This will exclude everything in the .gitattributes file with the export-ignore flag
+git archive HEAD | tar x --directory="$TMP_DIR"
+
+cd "$SVN_DIR"
+
+# Copy from clean copy to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
-rsync -r --exclude "/$ASSETS_DIR/" --exclude ".git/" --exclude ".github/" "$GITHUB_WORKSPACE/" trunk/ --delete
+rsync -r "$TMP_DIR/" trunk/ --delete
 
 # Copy dotorg assets to /assets
 rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
