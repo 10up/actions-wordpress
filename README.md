@@ -10,7 +10,10 @@ Here is a collection of GitHub Actions to help with common needs for WordPress d
 Whenever you tag a new version of your plugin on GitHub, your changes will be committed to both `trunk` and the appropriate `tags` subfolder in your WordPress.org plugin repository.
 
 ## Planned
-* Building a production-ready version into a `stable` branch
+* Building a production-ready version into a `stable` branch or other location of choice.
+
+## Ideas
+* Generate hook docs into a Markdown file that can be published into a subfolder, GitHub wiki, and/or `gh-pages` branch.
 
 ## Contributing
 Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get started.
