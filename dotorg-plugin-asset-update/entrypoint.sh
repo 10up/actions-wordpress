@@ -18,11 +18,6 @@ if [[ -z "$SVN_PASSWORD" ]]; then
 	exit 1
 fi
 
-if [[ -z "$GITHUB_TOKEN" ]]; then
-	echo "Set the GITHUB_TOKEN env variable"
-	exit 1
-fi
-
 # Allow some ENV variables to be customized
 if [[ -z "$SLUG" ]]; then
 	SLUG=${GITHUB_REPOSITORY#*/}

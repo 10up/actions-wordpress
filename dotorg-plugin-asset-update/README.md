@@ -1,41 +1,36 @@
-# WordPress.org Plugin Readme Update
+# WordPress.org Plugin Assets Update
 
-This Action commits the contents of your Git tag to the WordPress.org plugin repository using the same tag name. It excludes files in `.git` and `.github` subdirectories and moves anything from a `.wordpress-org` subdirectory to the top-level `assets` directory in Subversion (plugin banners, icons, and screenshots).
+This Action commits any `readme.txt` and WordPress.org-specific `assets` changes in your specified stable branch (typically `master`) to the WordPress.org plugin repository if no other changes have been made. This is useful for updating things like screenshots or `Tested up to` separately from functional changes provided your Git branching methodology avoids changing anything else in the specified branch between functional releases.
 
 ## Configuration
 
 ### Required secrets
 * `SVN_USERNAME`
 * `SVN_PASSWORD`
-* `GITHUB_TOKEN` - you do not need to generate one but you do have to explicitly make it available to the Action
 
 Secrets can be set while editing your workflow or in the repository settings. They cannot be viewed once stored. [GitHub secrets documentation](https://developer.github.com/actions/creating-workflows/storing-secrets/)
 
 ### Optional environment variables
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug. This should be a very rare case as WordPress assumes that the directory and initial plugin file have the same slug.
-* `VERSION` - defaults to the tag name; do not recommend setting this except for testing purposes
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
 
 ## Example Workflow File
 ```
-workflow "Deploy" {
-  resolves = ["WordPress Plugin Deploy"]
+workflow "Plugin Asset Update" {
+  resolves = ["WordPress Plugin Asset Update"]
   on = "push"
 }
 
-# Filter for tag
-action "tag" {
+# Filter for master branch
+action "branch" {
     uses = "actions/bin/filter@master"
-    args = "tag"
+    args = "branch master"
 }
 
-action "WordPress Plugin Deploy" {
-  needs = ["tag"]
-  uses = "10up/actions-wordpress/dotorg-plugin-deploy@master"
-  secrets = ["SVN_USERNAME", "SVN_PASSWORD", "GITHUB_TOKEN"]
-  env = {
-    SLUG = "my-super-cool-plugin"
-  }
+action "WordPress Plugin Update" {
+  needs = ["branch"]
+  uses = "10up/actions-wordpress/dotorg-plugin-asset-update@master"
+  secrets = ["SVN_USERNAME", "SVN_PASSWORD"]
 }
 ```
 
