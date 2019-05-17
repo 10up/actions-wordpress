@@ -92,9 +92,13 @@ svn add . --force > /dev/null
 # Also suppress stdout here
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
 
-# Check if there is more than just the readme modified in trunk
-svn stat trunk | grep -v 'readme.txt'
-svn status
+# Check if there is more than just the readme.txt modified in trunk
+# The leading whitespace in the pattern is important
+# so it doesn't match potential readme.txt in subdirectories!
+if [[ $(svn stat trunk | grep -vi ' trunk/readme.txt$') ]]; then
+	echo "🛑 Other files have been modified; changes not deployed"
+	exit 1
+fi
 
 echo "➤ Committing files..."
 svn commit -m "Updating readme/assets from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
