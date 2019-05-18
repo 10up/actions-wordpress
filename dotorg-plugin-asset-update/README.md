@@ -27,7 +27,7 @@ action "branch" {
     args = "branch master"
 }
 
-action "WordPress Plugin Update" {
+action "WordPress Plugin Asset Update" {
   needs = ["branch"]
   uses = "10up/actions-wordpress/dotorg-plugin-asset-update@master"
   secrets = ["SVN_USERNAME", "SVN_PASSWORD"]
