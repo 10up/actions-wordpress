@@ -33,7 +33,7 @@ SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
-# Tagging will be handled on the SVN level
+# Stable tag will come later, if applicable
 echo "➤ Checking out .org repository..."
 svn checkout --depth immediates "$SVN_URL" "$SVN_DIR"
 cd "$SVN_DIR"
@@ -96,6 +96,29 @@ if [[ -z $(svn stat) ]]; then
 elif svn stat trunk | grep -qvi ' trunk/readme.txt$'; then
 	echo "🛑 Other files have been modified; changes not deployed"
 	exit 1
+fi
+
+# Readme also has to be updated in the .org tag
+echo "➤ Preparing tag..."
+STABLE_TAG=$(grep -m 1 "^Stable tag:" "$TMP_DIR/readme.txt" | awk -F' ' '{print $NF}')
+
+if [ -z "$STABLE_TAG" ]; then
+    echo "ℹ︎ Could not get stable tag from readme.txt";
+	HAS_STABLE=1
+else
+	echo "ℹ︎ STABLE_TAG is $STABLE_TAG"
+
+	svn info "^/$SLUG/tags/$STABLE_TAG" > /dev/null
+	HAS_STABLE=$?
+fi
+
+if [ "$HAS_STABLE" == "0" ]; then
+	svn update --set-depth infinity "tags/$STABLE_TAG"
+
+	# Not doing the copying in SVN for the sake of easy history
+	rsync "$TMP_DIR/readme.txt" "tags/$STABLE_TAG/"
+else
+	echo "ℹ︎ Tag $STABLE_TAG not found"
 fi
 
 echo "➤ Committing files..."
