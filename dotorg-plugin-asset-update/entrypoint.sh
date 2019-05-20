@@ -100,9 +100,7 @@ if [ -z "$STABLE_TAG" ]; then
 else
 	echo "ℹ︎ STABLE_TAG is $STABLE_TAG"
 
-	svn info "^/$SLUG/tags/$STABLE_TAG" > /dev/null
-
-	if [ $? == "0" ]; then
+	if svn info "^/$SLUG/tags/$STABLE_TAG" > /dev/null 2>&1; then
 		svn update --set-depth infinity "tags/$STABLE_TAG"
 
 		# Not doing the copying in SVN for the sake of easy history
