@@ -72,10 +72,10 @@ cd "$SVN_DIR"
 
 # Copy from clean copy to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
-rsync -r "$TMP_DIR/" trunk/ --delete
+rsync -rc "$TMP_DIR/" trunk/ --delete
 
 # Copy dotorg assets to /assets
-rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
+rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
 echo "➤ Preparing files..."
 
@@ -106,7 +106,7 @@ else
 		svn update --set-depth infinity "tags/$STABLE_TAG"
 
 		# Not doing the copying in SVN for the sake of easy history
-		rsync "$TMP_DIR/readme.txt" "tags/$STABLE_TAG/"
+		rsync -c "$TMP_DIR/readme.txt" "tags/$STABLE_TAG/"
 	else
 		echo "ℹ︎ Tag $STABLE_TAG not found"
 	fi
