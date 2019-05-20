@@ -77,15 +77,7 @@ rsync -r "$TMP_DIR/" trunk/ --delete
 # Copy dotorg assets to /assets
 rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
-# Add everything and commit to SVN
-# The force flag ensures we recurse into subdirectories even if they are already added
-# Suppress stdout in favor of svn status later for readability
 echo "➤ Preparing files..."
-svn add . --force > /dev/null
-
-# SVN delete all deleted files
-# Also suppress stdout here
-svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
 
 if [[ -z $(svn stat) ]]; then
 	echo "🛑 Nothing to deploy!"
@@ -99,7 +91,7 @@ elif svn stat trunk | grep -qvi ' trunk/readme.txt$'; then
 fi
 
 # Readme also has to be updated in the .org tag
-echo "➤ Preparing tag..."
+echo "➤ Preparing stable tag..."
 STABLE_TAG=$(grep -m 1 "^Stable tag:" "$TMP_DIR/readme.txt" | awk -F' ' '{print $NF}')
 
 if [ -z "$STABLE_TAG" ]; then
@@ -119,6 +111,18 @@ else
 		echo "ℹ︎ Tag $STABLE_TAG not found"
 	fi
 fi
+
+# Add everything and commit to SVN
+# The force flag ensures we recurse into subdirectories even if they are already added
+# Suppress stdout in favor of svn status later for readability
+svn add . --force > /dev/null
+
+# SVN delete all deleted files
+# Also suppress stdout here
+svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
+
+# Now show full SVN status
+svn status
 
 echo "➤ Committing files..."
 svn commit -m "Updating readme/assets from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
