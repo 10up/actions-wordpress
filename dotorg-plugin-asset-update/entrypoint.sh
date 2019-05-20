@@ -33,7 +33,7 @@ SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
-# Tagging will be handled on the SVN level
+# Stable tag will come later, if applicable
 echo "➤ Checking out .org repository..."
 svn checkout --depth immediates "$SVN_URL" "$SVN_DIR"
 cd "$SVN_DIR"
@@ -72,20 +72,12 @@ cd "$SVN_DIR"
 
 # Copy from clean copy to /trunk, excluding dotorg assets
 # The --delete flag will delete anything in destination that no longer exists in source
-rsync -r "$TMP_DIR/" trunk/ --delete
+rsync -rc "$TMP_DIR/" trunk/ --delete
 
 # Copy dotorg assets to /assets
-rsync -r "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
+rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
-# Add everything and commit to SVN
-# The force flag ensures we recurse into subdirectories even if they are already added
-# Suppress stdout in favor of svn status later for readability
 echo "➤ Preparing files..."
-svn add . --force > /dev/null
-
-# SVN delete all deleted files
-# Also suppress stdout here
-svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
 
 if [[ -z $(svn stat) ]]; then
 	echo "🛑 Nothing to deploy!"
@@ -97,6 +89,38 @@ elif svn stat trunk | grep -qvi ' trunk/readme.txt$'; then
 	echo "🛑 Other files have been modified; changes not deployed"
 	exit 1
 fi
+
+# Readme also has to be updated in the .org tag
+echo "➤ Preparing stable tag..."
+STABLE_TAG=$(grep -m 1 "^Stable tag:" "$TMP_DIR/readme.txt" | awk -F' ' '{print $NF}')
+
+if [ -z "$STABLE_TAG" ]; then
+    echo "ℹ︎ Could not get stable tag from readme.txt";
+	HAS_STABLE=1
+else
+	echo "ℹ︎ STABLE_TAG is $STABLE_TAG"
+
+	if svn info "^/$SLUG/tags/$STABLE_TAG" > /dev/null 2>&1; then
+		svn update --set-depth infinity "tags/$STABLE_TAG"
+
+		# Not doing the copying in SVN for the sake of easy history
+		rsync -c "$TMP_DIR/readme.txt" "tags/$STABLE_TAG/"
+	else
+		echo "ℹ︎ Tag $STABLE_TAG not found"
+	fi
+fi
+
+# Add everything and commit to SVN
+# The force flag ensures we recurse into subdirectories even if they are already added
+# Suppress stdout in favor of svn status later for readability
+svn add . --force > /dev/null
+
+# SVN delete all deleted files
+# Also suppress stdout here
+svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
+
+# Now show full SVN status
+svn status
 
 echo "➤ Committing files..."
 svn commit -m "Updating readme/assets from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
