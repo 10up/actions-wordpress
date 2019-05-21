@@ -79,6 +79,8 @@ rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
 
 echo "➤ Preparing files..."
 
+svn status
+
 if [[ -z $(svn stat) ]]; then
 	echo "🛑 Nothing to deploy!"
 	exit 78
