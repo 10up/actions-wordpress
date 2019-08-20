@@ -17,6 +17,7 @@ Secrets can be set while editing your workflow or in the repository settings. Th
 ### Optional environment variables
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug. This should be a very rare case as WordPress assumes that the directory and initial plugin file have the same slug.
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
+* `README_NAME` - defaults to `readme.txt`, customizable this value, if you are using a `README.md` file for this plugin which should be used for the WordPress plugin directory as well.
 
 ### Known issues
 * It would be more efficient to additionally use the `paths` filter for the `push` action to reduce the number of runs. So far in testing it is possible to limit it to pushes that include readme/asset files as specified, but not ones that *only* include those files. The Action itself still needs to run as written because it compares the totality of changes in the branch against what's in SVN and not just the contents of the current push.
