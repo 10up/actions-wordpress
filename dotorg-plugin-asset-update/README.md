@@ -35,7 +35,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: WordPress.org plugin asset/readme update
-      uses: 10up/actions-wordpress/dotorg-plugin-asset-update@develop
+      uses: 10up/actions-wordpress/dotorg-plugin-asset-update@master
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}

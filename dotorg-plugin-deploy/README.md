@@ -33,7 +33,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: WordPress Plugin Deploy
-      uses: 10up/actions-wordpress/dotorg-plugin-deploy@develop
+      uses: 10up/actions-wordpress/dotorg-plugin-deploy@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
