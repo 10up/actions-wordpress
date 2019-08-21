@@ -16,27 +16,29 @@ Secrets can be set while editing your workflow or in the repository settings. Th
 * `VERSION` - defaults to the tag name; do not recommend setting this except for testing purposes
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
 
+### Known issues
+* Currently the `tags` filter on the `push` action does not seem to work correctly, so we target the `refs/tags/*` naming of a branch instead. Ideally for readability and correctness this would use something like `tags: - *`.
+
 ## Example Workflow File
 ```
-workflow "Deploy" {
-  resolves = ["WordPress Plugin Deploy"]
-  on = "push"
-}
-
-# Filter for tag
-action "tag" {
-    uses = "actions/bin/filter@master"
-    args = "tag"
-}
-
-action "WordPress Plugin Deploy" {
-  needs = ["tag"]
-  uses = "10up/actions-wordpress/dotorg-plugin-deploy@master"
-  secrets = ["SVN_USERNAME", "SVN_PASSWORD", "GITHUB_TOKEN"]
-  env = {
-    SLUG = "my-super-cool-plugin"
-  }
-}
+name: Deploy to WordPress.org
+on:
+  push:
+    branches:
+    - refs/tags/*
+jobs:
+  tag:
+    name: New tag
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: WordPress Plugin Deploy
+      uses: 10up/actions-wordpress/dotorg-plugin-deploy@develop
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SLUG: my-super-cool-plugin
 ```
 
 ## Contributing

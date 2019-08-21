@@ -18,24 +18,27 @@ Secrets can be set while editing your workflow or in the repository settings. Th
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug. This should be a very rare case as WordPress assumes that the directory and initial plugin file have the same slug.
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
 
+### Known issues
+* It would be more efficient to additionally use the `paths` filter for the `push` action to reduce the number of runs. So far in testing it is possible to limit it to pushes that include readme/asset files as specified, but not ones that *only* include those files. The Action itself still needs to run as written because it compares the totality of changes in the branch against what's in SVN and not just the contents of the current push.
+
 ## Example Workflow File
 ```
-workflow "Plugin Asset Update" {
-  resolves = ["WordPress Plugin Asset Update"]
-  on = "push"
-}
-
-# Filter for master branch
-action "branch" {
-    uses = "actions/bin/filter@master"
-    args = "branch master"
-}
-
-action "WordPress Plugin Asset Update" {
-  needs = ["branch"]
-  uses = "10up/actions-wordpress/dotorg-plugin-asset-update@master"
-  secrets = ["SVN_USERNAME", "SVN_PASSWORD"]
-}
+name: Plugin asset/readme update
+on:
+  push:
+    branches:
+    - master
+jobs:
+  master:
+    name: Push to master
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: WordPress.org plugin asset/readme update
+      uses: 10up/actions-wordpress/dotorg-plugin-asset-update@develop
+      env:
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
 ```
 
 ## Contributing
