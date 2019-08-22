@@ -110,3 +110,5 @@ echo "➤ Committing files..."
 svn commit -m "Update to version $VERSION from GitHub" --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 echo "✓ Plugin deployed!"
+
+echo "⚠️ Please consider migrating to https://github.com/10up/action-wordpress-plugin-deploy for the latest version of this Action"
