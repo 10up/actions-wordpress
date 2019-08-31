@@ -8,26 +8,18 @@ The following is a set of guidelines for contributors as well as information and
 
 Contributing isn't just writing code - it's anything that improves the project. All contributions for our GitHub Actions for WordPress are managed right here on GitHub. Here are some ways you can help:
 
-### Reporting bugs
+### Reporting bugs and requesting enhancements
 
-If you're running into an issue with the action, please take a look through [existing issues](https://github.com/10up/actions-wordpress/issues) and [open a new one](https://github.com/10up/actions-wordpress/issues/new) if needed. If you're able, include a link to the log output from the failed run.
+If you're running into a problem with an action or would like to see it do something more, please open an issue in the repository for that specific action.
 
-### Suggesting enhancements
+### Suggesting new actions
 
-New features and enhancements are also managed via [issues](https://github.com/10up/actions-wordpress/issues).
+Ideas for future actions can be found in [issues](https://github.com/10up/actions-wordpress/issues).
 
 ### Pull requests
 
-Pull requests represent a proposed solution to a specified problem. They should always reference an issue that describes the problem and contains discussion about the problem itself. Discussion on pull requests should be limited to the pull request itself, i.e. code review.
-
-For more on how 10up writes and manages code, check out our [10up Engineering Best Practices](https://10up.github.io/Engineering-Best-Practices/).
+Pull requests will likely be uncommon but are welcomed as necessary!
 
 ## Workflow
 
-This repository currently only uses the `master` branch, which should always be stable and usable. Releases will be tagged as needed.
-
-## Release instructions
-
-1. [Create a new release](https://github.com/10up/actions-wordpress/releases/new)
-2. Ensure it appears in the GitHub Marketplace correctly
-3. Celebrate shipping!
+This repository currently only actively uses the `master` branch as it is meant to serve as a documentation source. The Action subdirectories in this repository are kept for historical reasons.

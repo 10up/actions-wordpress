@@ -1,15 +1,15 @@
 # GitHub Actions for WordPress!
 
-Here is a collection of GitHub Actions to help with common needs for WordPress development. Specific documentation for each Action is in the `README.md` file in its subdirectory.
+Here is a collection of GitHub Actions to help with common needs for WordPress development. Specific documentation for each Action is in its respective respository. Ideas for future Actions can be found in [issues](https://github.com/10up/actions-wordpress/issues).
 
 [More information about GitHub Actions](https://github.com/features/actions/)
 
 ## Ready to use
-### [Deploying a plugin to the WordPress.org repository](dotorg-plugin-deploy)
+### [Deploying a plugin to the WordPress.org repository](https://github.com/10up/action-wordpress-plugin-deploy)
 
 Whenever you tag a new version of your plugin on GitHub, your changes will be committed to both `trunk` and the appropriate `tags` subfolder in your WordPress.org plugin repository.
 
-### [Deploying plugin asset/readme updates to the WordPress.org repository](dotorg-plugin-asset-update)
+### [Deploying plugin asset/readme updates to the WordPress.org repository](https://github.com/10up/action-wordpress-plugin-asset-update)
 
 If you push to your specified branch and it only contains changes to the WordPress.org assets directory (defaults to `/.wordpress-org`) or `readme.txt`, deploy those changes to the WordPress.org plugin repository. This is useful for being able to update things like screenshots or the `Tested up to` version in between tagged releases.
 
