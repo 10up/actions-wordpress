@@ -1,4 +1,4 @@
-# Publishing generated hook documentation to GitHub Pages
+# How to generate WordPress plugin hook documentation and deploy it to GitHub Pages
 
 If you document the hooks (actions and filters) in your WordPress project using the JSDoc standard, you can automatically turn that into a reader-friendly resource using this guide! This workflow uses a combination of a build process and an Action to publish documentation to GitHub Pages so you don't have to separately worry about keeping your documentation up to date and publicly available. For a live example, see our [Distributor hook documentation](https://10up.github.io/distributor/).
 
