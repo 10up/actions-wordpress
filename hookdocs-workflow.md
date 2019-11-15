@@ -28,7 +28,7 @@ Definitely take a moment to browse [JSDoc's documentation](https://jsdoc.app) an
 
 Since this uses a command in your `package.json` rather than a hosted GitHub Action to generate the documentation, you can run `npm run build:docs` to build the documentation locally and examine it.
 
-## Now for some copy-pasta 🍝
+## Code examples <span aria-hidden="true">🍝</span>
 
 ### Docblock example
 ```php
