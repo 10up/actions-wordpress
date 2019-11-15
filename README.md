@@ -1,6 +1,6 @@
 # GitHub Actions for WordPress!
 
-Here is a collection of GitHub Actions to help with common needs for WordPress development. Specific documentation for each Action is in its respective respository. Ideas for future Actions can be found in [issues](https://github.com/10up/actions-wordpress/issues).
+Here is a collection of GitHub Actions and workflows to help with common needs for WordPress development. Specific documentation for each Action is in its respective respository, and other example workflows leveraging existing Actions can be found in this repository. Ideas for future Actions can be found in [issues](https://github.com/10up/actions-wordpress/issues).
 
 [More information about GitHub Actions](https://github.com/features/actions/)
 
@@ -13,11 +13,12 @@ Whenever you tag a new version of your plugin on GitHub, your changes will be co
 
 If you push to your specified branch and it only contains changes to the WordPress.org assets directory (defaults to `/.wordpress-org`) or `readme.txt`, deploy those changes to the WordPress.org plugin repository. This is useful for being able to update things like screenshots or the `Tested up to` version in between tagged releases.
 
+### [Publishing generated hook documentation to GitHub Pages]()
+
+If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/).
+
 ## Planned
 * Building a production-ready version into a `stable` branch or other location of choice.
-
-## Ideas
-* Generate hook docs into a Markdown file that can be published into a subfolder, GitHub wiki, and/or `gh-pages` branch.
 
 ## Contributing
 Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get started.
