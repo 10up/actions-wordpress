@@ -148,3 +148,10 @@ This is currently a workaround for a [known issue](https://github.com/maxheld83/
 ### I have another question that's not answered here.
 
 Thanks for making it this far! Please [open up an issue](https://github.com/10up/actions-wordpress/issues) with what you're looking for or any feedback you have about this guide and we can take it from there.
+
+## More Actions for WordPress Developers
+Do you develop your WordPress plugins on GitHub but still wrestle with SVN to deploy them to WordPress.org? We've got [some Actions](README.md) to help!
+
+<p align="center">
+<a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
+</p>
