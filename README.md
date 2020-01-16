@@ -2,7 +2,7 @@
 
 > Here is a collection of GitHub Actions and workflows to help with common needs for WordPress development. Specific documentation for each Action is in its respective respository, and other example workflows leveraging existing Actions can be found in this repository. Ideas for future Actions can be found in [issues](https://github.com/10up/actions-wordpress/issues).
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/actions-wordpress.svg)](https://github.com/10up/actions-wordpress/blob/master/LICENSE)
 
 [More information about GitHub Actions](https://github.com/features/actions/)
 
@@ -37,7 +37,3 @@ Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get st
 <p align="center">
 <a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
 </p>
-
-## License
-
-Our GitHub Actions are available for use and remix under the MIT license.
