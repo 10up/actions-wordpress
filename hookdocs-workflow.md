@@ -18,7 +18,7 @@ If the default template serves you well, by all means remove those extra config 
 
 For the template, you can override the main layout file as shown in the `hookdoc-conf.json`. Notably, we wanted to change the title structure, reference a custom CSS file, add a footer, and change a couple things about how the landing page looked. See [this example](https://github.com/10up/distributor/blob/develop/.github/hookdoc-tmpl/layout.tmpl) for the code - you'll notice things such as `<body<?js if (title === 'Home') { ?> class="home"<?js } ?>>`.
 
-Our examples currently use a local CSS file that's copied over from a `static` assets subfolder, but if you're got multiple generated documentation sites that you want to all look the same, we'd recommend referencing a single CSS file by URL instead, which could be directly off of GitHub or uploaded elsewhere.
+Our examples currently use a local CSS file that's copied over from a `static` assets subfolder, but if you've got multiple generated documentation sites that you want to all look the same, we'd recommend referencing a single CSS file by URL instead, which could be directly off of GitHub or uploaded elsewhere.
 
 ## Other JSDoc options
 
