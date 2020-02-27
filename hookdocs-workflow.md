@@ -4,7 +4,7 @@ If you document the hooks (actions and filters) in your WordPress project using 
 
 ## What you'll need
 
-* [JSDoc-formatted docblocks](#dockblock-example) for your hooks
+* [JSDoc-formatted docblocks](#docblock-example) for your hooks
 * A build command for docs, along with `jsdoc` and `wp-hookdoc` as `devDependencies` in your [`package.json`](#packagejson)
 * A [`hookdoc-conf.json`](#hookdoc-confjson) in the root of your repo
 * A [workflow file](#example-workflow-file) in your `.github/workflows` directory
