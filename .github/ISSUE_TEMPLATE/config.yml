@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Deploying a plugin to the WordPress.org repository
+    url: https://github.com/10up/action-wordpress-plugin-deploy/issues/new/choose
+    about: Please open issues related to our WordPress.org deploy action here.
+  - name: Deploying plugin asset/readme updates to the WordPress.org repository
+    url: https://github.com/10up/action-wordpress-plugin-asset-update/issues/new/choose
+    about: Please open issues related to our WordPress.org readme/asset updater action here.
