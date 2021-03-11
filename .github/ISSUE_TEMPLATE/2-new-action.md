@@ -1,6 +1,6 @@
 ---
-name: "\U0001F680 Enhancement"
-about: Suggest an idea for this project
+name: "\U0001F680 New Action"
+about: Suggest an idea for a new GitHub Action
 title: ''
 labels: enhancement
 assignees: ''

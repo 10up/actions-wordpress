@@ -1,5 +1,5 @@
 ---
-name: "\U0001F41B Bug report"
+name: "\U0001F41B Issue with hook documentation generator"
 about: Create a report to help us improve
 title: ''
 labels: bug
