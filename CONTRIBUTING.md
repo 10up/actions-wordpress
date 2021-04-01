@@ -22,4 +22,4 @@ Pull requests will likely be uncommon but are welcomed as necessary!
 
 ## Workflow
 
-This repository currently only actively uses the `master` branch as it is meant to serve as a documentation source. The Action subdirectories in this repository are kept for historical reasons.
+This repository currently only actively uses the `stable` branch as it is meant to serve as a documentation source. The Action subdirectories in this repository are kept for historical reasons.
