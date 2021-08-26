@@ -8,13 +8,25 @@
 
 ## Ready to use
 
+The following GitHub Actions are published,  available to use, and actively supported by 10up.
+
 ### [Deploying a plugin to the WordPress.org repository](https://github.com/10up/action-wordpress-plugin-deploy)
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](https://github.com/10up/action-wordpress-plugin-deploy/blob/develop/README.md#support-level) [![Release Version](https://img.shields.io/github/release/10up/action-wordpress-plugin-deploy.svg)](https://github.com/10up/action-wordpress-plugin-deploy/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/action-wordpress-plugin-deploy.svg)](https://github.com/10up/action-wordpress-plugin-deploy/blob/develop/LICENSE)
 
 Whenever you tag a new version of your plugin on GitHub, your changes will be committed to both `trunk` and the appropriate `tags` subfolder in your WordPress.org plugin repository.
 
 ### [Deploying plugin asset/readme updates to the WordPress.org repository](https://github.com/10up/action-wordpress-plugin-asset-update)
 
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](https://github.com/10up/action-wordpress-plugin-asset-update/blob/develop/README.md#support-level) [![Release Version](https://img.shields.io/github/release/10up/action-wordpress-plugin-asset-update.svg)](https://github.com/10up/action-wordpress-plugin-asset-update/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/action-wordpress-plugin-asset-update.svg)](https://github.com/10up/action-wordpress-plugin-asset-update/blob/develop/LICENSE)
+
 If you push to your specified branch and it only contains changes to the WordPress.org assets directory (defaults to `/.wordpress-org`) or `readme.txt`, deploy those changes to the WordPress.org plugin repository. This is useful for being able to update things like screenshots or the `Tested up to` version in between tagged releases.
+
+### [PHP linting without additional codebase dependencies](https://github.com/10up/wpcs-action)
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](https://github.com/10up/wpcs-action/blob/develop/README.md#support-level) [![Release Version](https://img.shields.io/github/release/10up/wpcs-action.svg)](https://github.com/10up/wpcs-action/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/wpcs-action.svg)](https://github.com/10up/wpcs-action/blob/develop/LICENSE)
+
+This action will run PHPCS ([PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)) against [WordPress Coding Standards](https://github.com/WordPress/WordPress-Coding-Standards) and show warnings and errors as annotations in your PRs without adding PHPCS as a dependency or a PHP CodeSniffer config.
 
 ### [Publishing generated hook documentation to GitHub Pages](hookdocs-workflow.md)
 
