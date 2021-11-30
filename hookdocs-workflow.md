@@ -68,17 +68,14 @@ $taxonomies = apply_filters( 'dt_syncable_taxonomies', $taxonomies, $post );
 ```json
 {
   "opts": {
-      "destination": "hookdocs",
-      "template": "node_modules/wp-hookdoc/template",
-      "recurse": true,
-      "readme": "./.github/hookdoc-tmpl/README.md"
+    "destination": "hookdocs",
+    "template": "node_modules/wp-hookdoc/template",
+    "recurse": true,
+    "readme": "./.github/hookdoc-tmpl/README.md"
   },
   "source": {
-    "include": [
-        "./",
-        "includes"
-      ],
-      "includePattern": ".+\\.(php)?$"
+    "include": [ "./" ],
+    "includePattern": ".+\\.(php)?$"
   },
   "plugins": [
     "node_modules/wp-hookdoc/plugin",
