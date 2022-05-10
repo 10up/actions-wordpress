@@ -30,7 +30,7 @@ This action will run PHPCS ([PHP_CodeSniffer](https://github.com/squizlabs/PHP_C
 
 ### [Publishing generated hook documentation to GitHub Pages](hookdocs-workflow.md)
 
-If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/).
+If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/). The [linting workflow](https://github.com/10up/maps-block-apple/blob/develop/.github/workflows/linting.yml) of Block for Apple Maps is a good example how to use this action in practice.
 
 ## Planned
 
