@@ -102,7 +102,7 @@ name: Build Hook Docs
 on:
  push:
    branches:
-    - master
+    - trunk
 
 jobs:
   hookdocs:
