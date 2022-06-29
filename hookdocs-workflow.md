@@ -108,7 +108,7 @@ jobs:
   hookdocs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2.4.0
     - name: Use Node.js 10
       uses: actions/setup-node@v1
       with:
@@ -117,11 +117,13 @@ jobs:
       run: |
         npm install
         npm run build:docs
-    - name: Deploy to GH Pages
-      uses: maxheld83/ghpages@v0.2.1
       env:
-        BUILD_DIR: 'hookdocs/'
-        GH_PAT: ${{ secrets.GH_PAT }}
+        CI: true
+    - name: Deploy to GH Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: './docs'
 ```
 
 ## Questions you may have
