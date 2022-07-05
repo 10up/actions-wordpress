@@ -32,6 +32,10 @@ This action will run PHPCS ([PHP_CodeSniffer](https://github.com/squizlabs/PHP_C
 
 If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/). The [linting workflow](https://github.com/10up/maps-block-apple/blob/develop/.github/workflows/linting.yml) of Block for Apple Maps is a good example how to use this action in practice.
 
+### [Using markdown content in GitHub Actions summary](using-markdown-in-action-summary.md)
+
+In May 2022, GitHub introduced the [markdown support](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/) for the GitHub Actions summaries. This feature can help improve the developer experience by generating more useful reports to action summaries.
+
 ## Planned
 
 * Building a production-ready version into a `stable` branch or other location of choice.
