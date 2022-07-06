@@ -2,7 +2,7 @@
 
 In May 2022, GitHub introduced the [markdown support](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/) for the GitHub Actions summaries. This feature can help improve the developer experience by generating more useful reports to action summaries.
 
-In practice, we found it's more flexible to integrate with existing workflows than to update the action itself, so the ultimate goal here is creating markdown content from the action report then outputing the content to the `$GITHUB_STEP_SUMMARY` environment variable.
+In practice, we found it's more flexible to integrate with existing workflows than to update the action itself, so the ultimate goal here is creating markdown content from the action report and then outputting the content to the `$GITHUB_STEP_SUMMARY` environment variable.
 
 This page shares our results and instruction to integrate the Job summaries feature with our frequently used workflows.
 
