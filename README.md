@@ -28,6 +28,16 @@ If you push to your specified branch and it only contains changes to the WordPre
 
 This action will run PHPCS ([PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)) against [WordPress Coding Standards](https://github.com/WordPress/WordPress-Coding-Standards) and show warnings and errors as annotations in your PRs without adding PHPCS as a dependency or a PHP CodeSniffer config.
 
+### [Automating PR operations](https://github.com/10up/action-pr-automator)
+
+[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/action-pr-automator.svg)](https://github.com/10up/action-pr-automator/releases/latest) [![License](https://img.shields.io/github/license/10up/action-pr-automator.svg)](https://github.com/10up/action-pr-automator/blob/develop/LICENSE.md) [![CodeQL](https://github.com/10up/action-pr-automator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/10up/action-pr-automator/actions/workflows/codeql-analysis.yml)
+
+This action automates some common PR operations like validating PR description, changlog, and credits.
+- **Validate PR description:** It validates PR description to make sure it contains description of the change, changelog and credits. Also, you can set custom comment message for PR author to inform them about PR description requirements.
+- **Add Labels:** It helps with adding label to PR when PR validation pass or fail.
+- **Auto-assign PR:** It helps with assigning PR to the author.
+- **Auto request review:** It helps with request review from the team or GitHub user given in the configuration.
+
 ### [Publishing generated hook documentation to GitHub Pages](hookdocs-workflow.md)
 
 If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/). The [linting workflow](https://github.com/10up/maps-block-apple/blob/develop/.github/workflows/linting.yml) of Block for Apple Maps is a good example how to use this action in practice.
