@@ -16,6 +16,12 @@ The following GitHub Actions are published,  available to use, and actively supp
 
 Whenever you tag a new version of your plugin on GitHub, your changes will be committed to both `trunk` and the appropriate `tags` subfolder in your WordPress.org plugin repository.
 
+### [WordPress.org Plugin Build Zip Archive](https://github.com/10up/action-wordpress-plugin-build-zip)
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/action-wordpress-plugin-build-zip.svg)](https://github.com/10up/action-wordpress-plugin-build-zip/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/action-wordpress-plugin-build-zip.svg)](https://github.com/10up/action-wordpress-plugin-build-zip/blob/develop/LICENSE)
+
+This Action will build a zip archive of your WordPress plugin and attach that archive as an artifact, allowing you to download and test prior to deploying any changes to WordPress.org.  This gives you the peace of mind knowing you've tested exactly what will be deployed.  Recommended to be used in conjunction with our [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy) as both Actions create the archive in the same way. An ideal workflow is to run this Action first and test the zip archive it provides.  Once testing passes, then run our deploy Action to push changes to WordPress.org.
+
 ### [Deploying plugin asset/readme updates to the WordPress.org repository](https://github.com/10up/action-wordpress-plugin-asset-update)
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](https://github.com/10up/action-wordpress-plugin-asset-update/blob/develop/README.md#support-level) [![Release Version](https://img.shields.io/github/release/10up/action-wordpress-plugin-asset-update.svg)](https://github.com/10up/action-wordpress-plugin-asset-update/releases/latest) [![MIT License](https://img.shields.io/github/license/10up/action-wordpress-plugin-asset-update.svg)](https://github.com/10up/action-wordpress-plugin-asset-update/blob/develop/LICENSE)
