@@ -48,6 +48,10 @@ This action automates some common PR operations like validating PR description, 
 
 If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/). The [linting workflow](https://github.com/10up/maps-block-apple/blob/develop/.github/workflows/linting.yml) of Block for Apple Maps is a good example how to use this action in practice.
 
+### Validating project dependency licensing
+
+If you publish projects that adhere to a certain license (e.g. GPLv2), then you will want to ensure any dependencies within your project adhere to a compatible license.  We've crafted a [GitHub Action workflow](https://github.com/10up/insert-special-characters/blob/develop/.github/workflows/dependency-review.yml) and [GPL-Compatible License Policy file](https://github.com/10up/.github/blob/trunk/.github/dependency-review-config.yml) that can be leveraged to ensure your projects are GPL-compatible.  Additional license policy files could be developed to ensure other licensing are valid (e.g. a MIT-Compatible License Policy file).
+
 ### [Using markdown content in GitHub Actions summary](using-markdown-in-action-summary.md)
 
 In May 2022, GitHub introduced the [markdown support](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/) for the GitHub Actions summaries. This feature can help improve the developer experience by generating more useful reports to action summaries.
