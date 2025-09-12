@@ -68,9 +68,9 @@ This action automates some common repository operations, such as validating PR d
 - **Welcome first-time contributors:** Greet first-time contributors with a warm welcome message on their first issue or PR to the project.
 - **Auto-comment on new Issues/PRs:** Automatically adds a comment to newly opened issues and PRs. This can be used to request users to provide as much context as possible or share links to your contributing guidelines, or anything else that suits your use case.
 
-### [Publishing generated hook documentation to GitHub Pages](hookdocs-workflow.md)
+### [Publishing generated hook documentation to GitHub Pages](wp-hooks-documentor-workflow.md)
 
-If you follow the [JSDoc](https://jsdoc.app/) standard for your custom WordPress actions and filters, you can use this workflow to generate documentation for your theme/plugin and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/). The [linting workflow](https://github.com/10up/maps-block-apple/blob/develop/.github/workflows/linting.yml) of Block for Apple Maps is a good example how to use this action in practice.
+You can use this workflow to automatically generate a documentation for your WordPress plugin hooks (actions and filters) using the [WP Hooks Documentor](https://github.com/10up/wp-hooks-documentor) and publish them to GitHub Pages. For an example of the output, see the [Distributor hook docs](https://10up.github.io/distributor/).
 
 ### Validating project dependency licensing
 
